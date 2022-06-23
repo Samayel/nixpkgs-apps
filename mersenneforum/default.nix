@@ -1,12 +1,20 @@
 { nixpkgs ? import <nixpkgs> { config = import ./config.nix; } }:
 
 let
-  pkgs = with nixpkgs; rec {
+  allPkgs = nixpkgs // pkgs;
+
+  callPackage = path: overrides:
+    let f = import path;
+    in f ((builtins.intersectAttrs (builtins.functionArgs f) allPkgs) // overrides);
+
+  pkgs = rec {
     ecmgit = callPackage ./packages/ecmgit.nix { };
-    yafu = callPackage ./packages/yafu.nix { };
+    yafu = callPackage ./packages/yafu.nix { ecm = ecmgit; };
   };
 
-  allPkgs = nixpkgs // pkgs;
-  params = with allPkgs; { buildInputs = [ yafu ]; };
+  params = with allPkgs; {
+    buildInputs = [ yafu ];
+  };
 in
-  nixpkgs.runCommand "dummy" params ""
+
+nixpkgs.runCommand "dummy" params ""

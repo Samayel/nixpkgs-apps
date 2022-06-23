@@ -1,3 +1,3 @@
-{ ecm }:
+{ gmp, ecm }:
 
 ecm
