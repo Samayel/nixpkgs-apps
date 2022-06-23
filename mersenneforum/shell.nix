@@ -4,7 +4,7 @@ let
   pkgs = import ./default.nix { inherit nixpkgs; };
 
   params = with pkgs; {
-    buildInputs = [ yafu ];
+    buildInputs = [ ecm-git msieve-svn yafu ];
   };
 in
 

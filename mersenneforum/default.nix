@@ -8,8 +8,10 @@ let
     in nixpkgs.lib.makeOverridable f ((builtins.intersectAttrs (builtins.functionArgs f) allPkgs) // overrides);
 
   pkgs = rec {
-    ecmgit = callPackage ./packages/ecmgit.nix { };
-    yafu = callPackage ./packages/yafu.nix { ecm = ecmgit; };
+    gmp = nixpkgs.gmp;
+    ecm-git = callPackage ./packages/ecm-git.nix { };
+    msieve-svn = callPackage ./packages/msieve-svn.nix { ecm = ecm-git; };
+    yafu = callPackage ./packages/yafu.nix { ecm = ecm-git; msieve = msieve-svn; };
   };
 in
 

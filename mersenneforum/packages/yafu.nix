@@ -1,3 +1,3 @@
-{ gmp, ecm }:
+{ gmp, ecm, msieve }:
 
-ecm
+msieve
