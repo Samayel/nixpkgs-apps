@@ -11,10 +11,6 @@ let
     ecmgit = callPackage ./packages/ecmgit.nix { };
     yafu = callPackage ./packages/yafu.nix { ecm = ecmgit; };
   };
-
-  params = with allPkgs; {
-    buildInputs = [ yafu ];
-  };
 in
 
-nixpkgs.runCommand "dummy" params ""
+allPkgs
