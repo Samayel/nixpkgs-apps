@@ -5,7 +5,7 @@ let
 
   callPackage = path: overrides:
     let f = import path;
-    in f ((builtins.intersectAttrs (builtins.functionArgs f) allPkgs) // overrides);
+    in nixpkgs.lib.makeOverridable f ((builtins.intersectAttrs (builtins.functionArgs f) allPkgs) // overrides);
 
   pkgs = rec {
     ecmgit = callPackage ./packages/ecmgit.nix { };
