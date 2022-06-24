@@ -1,4 +1,6 @@
-{ nixpkgs ? import <nixpkgs> { config = import ./config.nix; } }:
+{ sources ? import ./nix/sources.nix
+, nixpkgs ? import sources.nixpkgs { overlays = [] ; config = import ./config.nix; }
+}:
 
 let
   pkgs = import ./default.nix { inherit nixpkgs; };
