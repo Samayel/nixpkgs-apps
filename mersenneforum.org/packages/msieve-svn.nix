@@ -1,15 +1,21 @@
-{ lib, stdenv, fetchurl, zlib, gmp, ecm }:
+{ lib, stdenv, fetchsvn, subversion, zlib, gmp, ecm }:
+
+let
+  pname = "msieve";
+  version = "svn-1044";
+  name = "${pname}-${version}";
+in
 
 stdenv.mkDerivation rec {
-  pname = "msieve";
-  version = "1.53";
+  inherit name;
 
-  src = fetchurl {
-    url = "mirror://sourceforge/msieve/msieve/Msieve%20v${version}/msieve${lib.replaceStrings ["."] [""] version}_src.tar.gz";
-    sha256 = "1d1vv7j4rh3nnxsmvafi73qy7lw7n3akjlm5pjl3m936yapvmz65";
+  src = fetchsvn {
+    url = "https://svn.code.sf.net/p/msieve/code/trunk/";
+    rev = "1044";
+    sha256 = "njutwl3z09yK4oahFYHpLrKGpVSoJqUxFeuou4zeQWU=";
   };
 
-  buildInputs = [ zlib gmp ecm ];
+  buildInputs = [ subversion zlib gmp ecm ];
 
   ECM = if ecm == null then "0" else "1";
 

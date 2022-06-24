@@ -14,14 +14,14 @@ stdenv.mkDerivation {
     rev = "5663e00cb4880a6ee6393eb9067e9eea201098d4";
   };
 
+  buildInputs = [ m4 gmp ];
+
   nativeBuildInputs = [
     autoreconfHook
   ];
 
   # See https://trac.sagemath.org/ticket/19233
   configureFlags = lib.optional stdenv.isDarwin "--disable-asm-redc";
-
-  buildInputs = [ m4 gmp ];
 
   doCheck = true;
   preCheck = "sed -i -e 's|^/bin/rm |rm |g' test.*";
