@@ -4,10 +4,22 @@
 
 let
   pkgs = import ./default.nix { inherit nixpkgs; };
-
-  params = with pkgs; {
-    buildInputs = [ ecm-git msieve-svn yafu ];
-  };
 in
 
-pkgs.runCommand "dummy" params ""
+pkgs.mkShell {
+
+    nativeBuildInputs = with pkgs; [
+        niv
+        ecm-git
+        msieve-svn
+        yafu
+    ];
+
+#   NIXSHELL_GREETING = "Hello, shell!";
+#
+#   shellHook =
+#   ''
+#       echo $NIXSHELL_GREETING
+#   '';
+
+}
