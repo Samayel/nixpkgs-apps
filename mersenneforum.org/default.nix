@@ -11,9 +11,9 @@ let
 
   pkgs = rec {
     gmp = nixpkgs.gmp;
-    ecm-git = callPackage ./packages/ecm-git.nix { };
-    msieve-svn = callPackage ./packages/msieve-svn.nix { ecm = ecm-git; };
-    yafu = callPackage ./packages/yafu.nix { ecm = ecm-git; msieve = msieve-svn; };
+    ecm-git = callPackage ./packages/ecm-git { };
+    msieve-svn = callPackage ./packages/msieve-svn { ecm = ecm-git; };
+    yafu = callPackage ./packages/yafu { ecm = ecm-git; msieve = msieve-svn; };
   };
 in
 
