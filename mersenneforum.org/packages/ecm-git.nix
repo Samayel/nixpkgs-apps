@@ -20,11 +20,14 @@ stdenv.mkDerivation {
     autoreconfHook
   ];
 
+  patchPhase = ''
+    sed -i -e 's|^/bin/rm |rm |g' test.*
+  '';
+
   # See https://trac.sagemath.org/ticket/19233
   configureFlags = lib.optional stdenv.isDarwin "--disable-asm-redc";
 
   doCheck = true;
-  preCheck = "sed -i -e 's|^/bin/rm |rm |g' test.*";
 
   meta = {
     description = "Elliptic Curve Method for Integer Factorization";
