@@ -1,9 +1,10 @@
-{ lib, stdenv, fetchurl, autoreconfHook, gmp, m4 }:
+{ lib, stdenv, autoreconfHook, gmp, m4 }:
 
 let
-  pname = "ecm";
-  version = "git-5663e00c";
   name = "${pname}-${version}";
+  pname = "ecm";
+  version = "git-" + builtins.substring 0 8 commit;
+  commit = "5663e00cb4880a6ee6393eb9067e9eea201098d4";
 in
 
 stdenv.mkDerivation {
@@ -11,7 +12,7 @@ stdenv.mkDerivation {
 
   src = fetchGit {
     url = "https://gitlab.inria.fr/zimmerma/ecm";
-    rev = "5663e00cb4880a6ee6393eb9067e9eea201098d4";
+    rev = commit;
   };
 
   buildInputs = [ m4 gmp ];
@@ -21,7 +22,11 @@ stdenv.mkDerivation {
   ];
 
   patchPhase = ''
+    runHook prePatch
+
     sed -i -e 's|^/bin/rm |rm |g' test.*
+
+    runHook postPatch
   '';
 
   # See https://trac.sagemath.org/ticket/19233

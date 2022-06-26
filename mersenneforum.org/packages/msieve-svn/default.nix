@@ -1,9 +1,10 @@
 { lib, stdenv, fetchsvn, subversion, zlib, gmp, ecm }:
 
 let
-  pname = "msieve";
-  version = "svn-1044";
   name = "${pname}-${version}";
+  pname = "msieve";
+  version = "svn-" + revision;
+  revision = "1044";
 in
 
 stdenv.mkDerivation rec {
@@ -11,20 +12,29 @@ stdenv.mkDerivation rec {
 
   src = fetchsvn {
     url = "https://svn.code.sf.net/p/msieve/code/trunk/";
-    rev = "1044";
+    rev = revision;
     sha256 = "njutwl3z09yK4oahFYHpLrKGpVSoJqUxFeuou4zeQWU=";
   };
 
   buildInputs = [ subversion zlib gmp ecm ];
 
   ECM = if ecm == null then "0" else "1";
+  NO_ZLIB = if zlib == null then "1" else "0";
 
   # Doesn't hurt Linux but lets clang-based platforms like Darwin work fine too
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" "all" ];
 
   installPhase = ''
-    mkdir -p $out/bin/
+    runHook preInstall
+
+    mkdir -p $out/{bin,include,lib}
     cp msieve $out/bin/
+    cp include/msieve.h $out/include/
+    cp zlib/zconf.h $out/include/
+    cp zlib/zlib.h $out/include/
+    cp libmsieve.a $out/lib/
+
+    runHook postInstall
   '';
 
   meta = {

@@ -12,6 +12,7 @@ pkgs.mkShell {
         niv
         ecm-git
         msieve-svn
+        ysieve
         yafu
     ];
 
