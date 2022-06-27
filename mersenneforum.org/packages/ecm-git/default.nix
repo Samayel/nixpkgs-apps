@@ -1,4 +1,4 @@
-{ lib, stdenv, autoreconfHook, gmp, m4 }:
+{ lib, stdenv, fetchgit, autoreconfHook, gmp, m4 }:
 
 let
   name = "${pname}-${version}";
@@ -10,9 +10,10 @@ in
 stdenv.mkDerivation {
   inherit name;
 
-  src = fetchGit {
+  src = fetchgit {
     url = "https://gitlab.inria.fr/zimmerma/ecm";
     rev = commit;
+    sha256 = "JVmtB6gdLHWF6lHdW7RiWydx/KEEyIPHcNfb0w1lnec=";
   };
 
   buildInputs = [ m4 gmp ];

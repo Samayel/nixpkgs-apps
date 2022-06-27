@@ -16,6 +16,7 @@ let
     ytools = callPackage ./packages/ytools { };
     ysieve = callPackage ./packages/ysieve { };
     yafu = callPackage ./packages/yafu { ecm = ecm-git; msieve = msieve-svn; };
+    ggnfs = callPackage ./packages/ggnfs { };
   };
 in
 

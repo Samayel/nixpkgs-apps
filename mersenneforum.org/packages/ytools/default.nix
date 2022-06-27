@@ -1,4 +1,4 @@
-{ stdenv }:
+{ stdenv, fetchgit }:
 
 let
   name = "${pname}-${version}";
@@ -10,10 +10,10 @@ in
 stdenv.mkDerivation {
   inherit name;
 
-  src = fetchGit {
+  src = fetchgit {
     url = "https://github.com/bbuhrow/ytools";
     rev = commit;
-    ref = "main";
+    sha256 = "FoUqgUi/ofkqRaUnDIxL6j2/eSX7zOma54rvP/tv1UA=";
   };
 
   makeFlags = [ "COMPILER=gcc" "USE_AVX2=1" ];

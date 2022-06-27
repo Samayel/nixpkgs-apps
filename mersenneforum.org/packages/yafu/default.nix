@@ -1,4 +1,4 @@
-{ stdenv, gmp, ecm, msieve, ytools, ysieve }:
+{ stdenv, fetchgit, gmp, ecm, msieve, ytools, ysieve, ggnfs }:
 
 let
   name = "${pname}-${version}";
@@ -10,12 +10,13 @@ in
 stdenv.mkDerivation {
   inherit name;
 
-  src = fetchGit {
+  src = fetchgit {
     url = "https://github.com/bbuhrow/yafu";
     rev = commit;
+    sha256 = "ZBYBzIxOiGb+5CRxpF2ubt2goEtvaDIUyutK5fMk7EU=";
   };
 
-  buildInputs = [ gmp ecm msieve ytools ysieve ];
+  buildInputs = [ gmp ecm msieve ytools ysieve ggnfs ];
 
   patchPhase = ''
     runHook prePatch

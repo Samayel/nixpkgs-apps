@@ -14,6 +14,7 @@ pkgs.mkShell {
         msieve-svn
         ysieve
         yafu
+        ggnfs
     ];
 
 #   NIXSHELL_GREETING = "Hello, shell!";
