@@ -18,12 +18,12 @@ stdenv.mkDerivation {
     leaveDotGit = true;
   };
 
+  nativeBuildInputs = [ git m4 ];
+  buildInputs = [ gmp ];
+
   makepatch = ./make.patch;
   cpatch = ./c.patch;
   asmpatch = ./asm.patch;
-
-  nativeBuildInputs = [ git m4 ];
-  buildInputs = [ gmp ];
 
   patchPhase = ''
     runHook prePatch

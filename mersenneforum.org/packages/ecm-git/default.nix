@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchgit, autoreconfHook, gmp, m4 }:
+{ lib, stdenv, fetchgit, autoreconfHook, m4, gmp }:
 
 let
   name = "${pname}-${version}";
@@ -16,11 +16,8 @@ stdenv.mkDerivation {
     sha256 = "JVmtB6gdLHWF6lHdW7RiWydx/KEEyIPHcNfb0w1lnec=";
   };
 
-  buildInputs = [ m4 gmp ];
-
-  nativeBuildInputs = [
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ autoreconfHook m4 ];
+  buildInputs = [ gmp ];
 
   patchPhase = ''
     runHook prePatch

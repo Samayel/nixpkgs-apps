@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "njutwl3z09yK4oahFYHpLrKGpVSoJqUxFeuou4zeQWU=";
   };
 
-  buildInputs = [ subversion zlib gmp ecm ];
+  nativeBuildInputs = [ subversion ];
+  buildInputs = [ zlib gmp ecm ];
 
   ECM = if ecm == null then "0" else "1";
   NO_ZLIB = if zlib == null then "1" else "0";
