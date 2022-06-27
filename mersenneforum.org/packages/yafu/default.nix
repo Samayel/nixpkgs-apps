@@ -7,8 +7,16 @@ let
   commit = "ca48c65b66a465a5a47cf7da0301f4ef56227573";
 in
 
+assert gmp == ecm.gmp;
+assert gmp == msieve.gmp;
+assert gmp == ysieve.gmp;
+assert gmp == ggnfs.gmp;
+assert ecm == msieve.ecm;
+assert ytools == ysieve.ytools;
+assert null == msieve.zlib;
+
 stdenv.mkDerivation {
-  inherit name;
+  inherit name gmp ecm msieve ytools ysieve ggnfs;
 
   src = fetchgit {
     url = "https://github.com/bbuhrow/yafu";

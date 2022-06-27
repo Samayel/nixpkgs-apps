@@ -7,8 +7,10 @@ let
   revision = "1044";
 in
 
+assert gmp == ecm.gmp;
+
 stdenv.mkDerivation rec {
-  inherit name;
+  inherit name zlib gmp ecm;
 
   src = fetchsvn {
     url = "https://svn.code.sf.net/p/msieve/code/trunk/";

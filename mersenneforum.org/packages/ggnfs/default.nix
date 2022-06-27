@@ -8,7 +8,7 @@ let
 in
 
 stdenv.mkDerivation {
-  inherit name;
+  inherit name gmp;
 
   src = fetchgit {
     url = "https://github.com/radii/ggnfs";
