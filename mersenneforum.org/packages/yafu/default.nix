@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, gmp, ecm, msieve, ytools, ysieve, ggnfs }:
+{ stdenv, fetchgit, gmp, ecm, msieve, ytools, ysieve, ggnfs, bash }:
 
 let
   name = "${pname}-${version}";
@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     sha256 = "ZBYBzIxOiGb+5CRxpF2ubt2goEtvaDIUyutK5fMk7EU=";
   };
 
-  buildInputs = [ gmp ecm msieve ytools ysieve ggnfs ];
+  buildInputs = [ gmp ecm msieve ytools ysieve ggnfs bash ];
 
   patchPhase = ''
     runHook prePatch
@@ -40,7 +40,30 @@ stdenv.mkDerivation {
     runHook preInstall
 
     mkdir -p $out/bin
-    cp yafu $out/bin/
+    cp yafu $out/bin/yafu-wrapped
+
+    cp yafu.ini $out/bin/
+    sed -i -e "s|^% threads=1$|threads=4|"                  $out/bin/yafu.ini
+    sed -i -e "s|^% nprp=1$|nprp=20|"                       $out/bin/yafu.ini
+    sed -i -e "s|^v$|% v|"                                  $out/bin/yafu.ini
+    sed -i -e "s|^ggnfs_dir=.*$|ggnfs_dir=${ggnfs}/bin/|"   $out/bin/yafu.ini
+    sed -i -e "s|^ecm_path=.*$|ecm_path=${ecm}/bin/ecm|"    $out/bin/yafu.ini
+    sed -i -e "s|^ext_ecm=.*$|ext_ecm=10000|"               $out/bin/yafu.ini
+
+    cat > $out/bin/yafu <<'EOF'
+    #!${bash}/bin/bash
+    WORKDIR=$(mktemp -d)
+    pushd $WORKDIR
+    cp /out/bin/yafu-wrapped ./yafu
+    cp /out/bin/yafu.ini .
+    chmod +w ./*
+    ./yafu "$@"
+    popd
+    rm -rfI $WORKDIR
+    EOF
+
+    sed -i -e "s|/out/|$out/|g" $out/bin/yafu
+    chmod +x $out/bin/yafu
 
     runHook postInstall
   '';
