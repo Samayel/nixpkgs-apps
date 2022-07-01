@@ -15,6 +15,7 @@ pkgs.mkShell {
         ysieve
         yafu
         ggnfs
+        cado-nfs
         primesieve
         primecount
         primesum
