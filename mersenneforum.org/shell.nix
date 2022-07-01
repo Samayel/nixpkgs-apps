@@ -15,6 +15,9 @@ pkgs.mkShell {
         ysieve
         yafu
         ggnfs
+        primesieve
+        primecount
+        primesum
     ];
 
 #   NIXSHELL_GREETING = "Hello, shell!";

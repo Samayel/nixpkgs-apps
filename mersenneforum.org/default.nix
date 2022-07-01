@@ -17,6 +17,10 @@ let
     ysieve = callPackage ./packages/ysieve { };
     yafu = callPackage ./packages/yafu { ecm = ecm-git; msieve = msieve-svn; };
     ggnfs = callPackage ./packages/ggnfs { };
+
+    primesieve = callPackage ./packages/primesieve { };
+    primecount = callPackage ./packages/primecount { };
+    primesum = callPackage ./packages/primesum { };
   };
 in
 
