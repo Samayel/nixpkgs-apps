@@ -17,6 +17,7 @@ pkgs.mkShell {
         ggnfs
         ecmpy
         factmsievepy
+        aliqueit
         cado-nfs
         primesieve
         primecount

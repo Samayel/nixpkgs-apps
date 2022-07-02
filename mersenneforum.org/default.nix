@@ -18,8 +18,9 @@ let
     ysieve = callPackage ./packages/ysieve { };
     yafu = callPackage ./packages/yafu { ecm = ecm-git; msieve = msieve-svn; };
     ggnfs = callPackage ./packages/ggnfs { };
-    ecmpy = callPackage ./packages/ecmpy { };
-    factmsievepy = callPackage ./packages/factmsievepy { };
+    ecmpy = callPackage ./packages/ecmpy { ecm = ecm-git; };
+    factmsievepy = callPackage ./packages/factmsievepy { msieve = msieve-svn; };
+    aliqueit = callPackage ./packages/aliqueit { ecm = ecm-git; msieve = msieve-svn; };
 
     cado-nfs = callPackage ./packages/cado-nfs { ecm = ecm-git; };
 
