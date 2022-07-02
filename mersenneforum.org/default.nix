@@ -18,6 +18,7 @@ let
     ysieve = callPackage ./packages/ysieve { };
     yafu = callPackage ./packages/yafu { ecm = ecm-git; msieve = msieve-svn; };
     ggnfs = callPackage ./packages/ggnfs { };
+    ecmpy = callPackage ./packages/ecmpy { };
 
     cado-nfs = callPackage ./packages/cado-nfs { ecm = ecm-git; };
 
