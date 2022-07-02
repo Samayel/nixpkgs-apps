@@ -16,6 +16,7 @@ pkgs.mkShell {
         yafu
         ggnfs
         ecmpy
+        factmsievepy
         cado-nfs
         primesieve
         primecount
