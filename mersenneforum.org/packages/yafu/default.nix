@@ -31,6 +31,13 @@ stdenv.mkDerivation {
 
     sed -i -e 's| /users/buhrow/src/c/gmp_install/gmp-6.2.0/lib/libgmp.a | -lgmp |g' Makefile
 
+    sed -i -e 's|^% threads=1$|threads=4|'                  yafu.ini
+    sed -i -e 's|^% nprp=1$|nprp=20|'                       yafu.ini
+    sed -i -e 's|^v$|% v|'                                  yafu.ini
+    sed -i -e 's|^ggnfs_dir=.*$|ggnfs_dir=${ggnfs}/bin/|'   yafu.ini
+    sed -i -e 's|^ecm_path=.*$|ecm_path=${ecm}/bin/ecm|'    yafu.ini
+    sed -i -e 's|^ext_ecm=.*$|ext_ecm=10000|'               yafu.ini
+
     runHook postPatch
   '';
 
@@ -41,14 +48,7 @@ stdenv.mkDerivation {
 
     mkdir -p $out/bin
     cp yafu $out/bin/yafu-wrapped
-
     cp yafu.ini $out/bin/
-    sed -i -e "s|^% threads=1$|threads=4|"                  $out/bin/yafu.ini
-    sed -i -e "s|^% nprp=1$|nprp=20|"                       $out/bin/yafu.ini
-    sed -i -e "s|^v$|% v|"                                  $out/bin/yafu.ini
-    sed -i -e "s|^ggnfs_dir=.*$|ggnfs_dir=${ggnfs}/bin/|"   $out/bin/yafu.ini
-    sed -i -e "s|^ecm_path=.*$|ecm_path=${ecm}/bin/ecm|"    $out/bin/yafu.ini
-    sed -i -e "s|^ext_ecm=.*$|ext_ecm=10000|"               $out/bin/yafu.ini
 
     cat > $out/bin/yafu <<'EOF'
     #!${bash}/bin/bash

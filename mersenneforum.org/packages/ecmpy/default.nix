@@ -27,7 +27,8 @@ stdenv.mkDerivation {
     runHook prePatch
 
     sed -i -e '1s|^|#!${python2}/bin/python2\n|'                ecm.py
-    sed -i -e "s|^ECM_PATH = './'|ECM_PATH = '${ecm}/bin'|"     ecm.py
+    sed -i -e 's|^ECM_PATH = './'|ECM_PATH = '${ecm}/bin'|'     ecm.py
+    sed -i -e 's|^ECM_THREADS = .*$|ECM_THREADS = 4|'           ecm.py
 
     runHook postPatch
   '';
