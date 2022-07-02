@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, git, m4, gmp }:
+{ stdenv, fetchgit, m4, gmp }:
 
 let
   name = "${pname}-${version}";
@@ -14,26 +14,12 @@ stdenv.mkDerivation {
     url = "https://github.com/radii/ggnfs";
     rev = commit;
     sha256 = "M8e6m4d25T+SJb3E/tbRTXL1RuhHupkxMiD04XEQ7kU=";
-#   deepClone = true;
-    leaveDotGit = true;
   };
 
-  nativeBuildInputs = [ git m4 ];
+  nativeBuildInputs = [ m4 ];
   buildInputs = [ gmp ];
 
-  makepatch = ./make.patch;
-  cpatch = ./c.patch;
-  asmpatch = ./asm.patch;
-
-  patchPhase = ''
-    runHook prePatch
-
-    git apply $makepatch
-    git apply $cpatch
-    git apply $asmpatch
-
-    runHook postPatch
-  '';
+  patches = [ ./make.patch ./c.patch ./asm.patch ];
 
   buildPhase = ''
     runHook preBuild
@@ -63,12 +49,7 @@ stdenv.mkDerivation {
 
     mkdir -p $out/bin
     cp bin/* $out/bin
-    cp src/experimental/lasieve4_64/gnfs-lasieve4I11e $out/bin/
-    cp src/experimental/lasieve4_64/gnfs-lasieve4I12e $out/bin/
-    cp src/experimental/lasieve4_64/gnfs-lasieve4I13e $out/bin/
-    cp src/experimental/lasieve4_64/gnfs-lasieve4I14e $out/bin/
-    cp src/experimental/lasieve4_64/gnfs-lasieve4I15e $out/bin/
-    cp src/experimental/lasieve4_64/gnfs-lasieve4I16e $out/bin/
+    cp src/experimental/lasieve4_64/gnfs-lasieve4I1{1,2,3,4,5,6}e $out/bin/
 
     runHook postInstall
   '';

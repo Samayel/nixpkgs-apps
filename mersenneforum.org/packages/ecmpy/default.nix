@@ -7,7 +7,7 @@ let
 in
 
 stdenv.mkDerivation {
-  inherit name;
+  inherit name ecm;
 
   src = ./ecm-py_v0.44.zip;
 
