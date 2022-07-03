@@ -8,16 +8,16 @@ in
 
 pkgs.mkShell {
 
-    nativeBuildInputs = with pkgs; [
-        niv
-        hello
-    ];
+  nativeBuildInputs = with pkgs; [
+    niv
+    hello
+  ];
 
-    NIXSHELL_GREETING = "Hello, shell!";
+  NIXSHELL_GREETING = "Hello, shell!";
 
-    shellHook =
-    ''
-        echo $NIXSHELL_GREETING
-    '';
+  shellHook =
+  ''
+    echo $NIXSHELL_GREETING
+  '';
 
 }
