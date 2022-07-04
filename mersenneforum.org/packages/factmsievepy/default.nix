@@ -27,7 +27,7 @@ stdenv.mkDerivation {
 
     sed -i 's/\r//g'                                                                   factmsieve.py
     sed -i -e '1s|^|#!${python2}/bin/python\n|'                                        factmsieve.py
-    sed -i -e 's|  al = {} if VERBOSE else {'creationflags' : 0x08000000 }|  al = {}|' factmsieve.py
+    sed -i -e "s|  al = {} if VERBOSE else {'creationflags' : 0x08000000 }|  al = {}|" factmsieve.py
     sed -i -e "s|^GGNFS_PATH = .*$|GGNFS_PATH = '${ggnfs}/bin/'|"                      factmsieve.py
     sed -i -e "s|^MSIEVE_PATH = .*$|MSIEVE_PATH = '${msieve}/bin/'|"                   factmsieve.py
     sed -i -e 's|^NUM_CORES = .*$|NUM_CORES = 4|'                                      factmsieve.py

@@ -34,6 +34,8 @@ stdenv.mkDerivation {
 
     cat $b2scalepatch | patch -p1 --
 
+    sed -i -e 's|system((cfg.ggnfs_cmd + " " + dir + "/test").c_str());|system((cfg.ggnfs_cmd + " test").c_str());|' src/aliqueit.cc
+
     sed -i -e 's|^\(ggnfs_clean_cmd = del\)|//\1|'                                  aliqueit.ini
     sed -i -e 's|^//\(ggnfs_clean_cmd = rm\)|\1|'                                   aliqueit.ini
     sed -i -e 's|^\(null_device = nul\)|//\1|'                                      aliqueit.ini
