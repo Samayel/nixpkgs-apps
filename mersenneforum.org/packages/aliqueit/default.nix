@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, gmp, ecm, ecmpy, yafu, msieve, ggnfs, bash }:
+{ stdenv, fetchgit, gmp, ecm, ecmpy, yafu, msieve, factmsievepy, bash }:
 
 let
   name = "${pname}-${version}";
@@ -14,10 +14,10 @@ assert ecm == ecmpy.ecm;
 assert ecm == yafu.ecm;
 assert ecm == msieve.ecm;
 assert msieve == yafu.msieve;
-assert ggnfs == yafu.ggnfs;
+assert msieve == factmsievepy.msieve;
 
 stdenv.mkDerivation {
-  inherit name gmp ecm ecmpy yafu msieve ggnfs;
+  inherit name gmp ecm ecmpy yafu msieve factmsievepy;
 
   src = fetchgit {
     url = "https://github.com/ChristianBeer/aliqueit.git";
@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     sha256 = "pKDklTKAigZRi9O1/65ynxPW7d3piI0wQIGdvuolVco=";
   };
 
-  buildInputs = [ gmp ecm ecmpy yafu msieve ggnfs bash ];
+  buildInputs = [ gmp ecm ecmpy yafu msieve factmsievepy bash ];
 
   b2scalepatch = ./b2scale.patch;
 
@@ -34,18 +34,19 @@ stdenv.mkDerivation {
 
     cat $b2scalepatch | patch -p1 --
 
-    sed -i -e 's|^\(ggnfs_clean_cmd = del\)|//\1|'                           aliqueit.ini
-    sed -i -e 's|^//\(ggnfs_clean_cmd = rm\)|\1|'                            aliqueit.ini
-    sed -i -e 's|^\(null_device = nul\)|//\1|'                               aliqueit.ini
-    sed -i -e 's|^//\(null_device = /dev\)|\1|'                              aliqueit.ini
-    sed -i -e 's|^ecm_cmd = .*$|ecm_cmd = ${ecm}/bin/ecm|'                   aliqueit.ini
-    sed -i -e 's|^ecmpy_cmd = .*$|ecmpy_cmd = ${ecmpy}/bin/ecm.py|'          aliqueit.ini
-    sed -i -e 's|^yafu_cmd = .*$|yafu_cmd = ${yafu}/bin/yafu-wrapped|'       aliqueit.ini
-    sed -i -e 's|^msieve_cmd = .*$|msieve_cmd = ${msieve}/bin/msieve|'       aliqueit.ini
-    sed -i -e 's|^ggnfs_cmd = .*$|ggnfs_cmd = ${ggnfs}/bin/factmsieve.py|'   aliqueit.ini
-    sed -i -e 's|^prefer_yafu = .*$|prefer_yafu = true|'                     aliqueit.ini
-    sed -i -e 's|^use_ecmpy = .*$|use_ecmpy = true|'                         aliqueit.ini
-    sed -i -e 's|^gnfs_cutoff = .*$|gnfs_cutoff = 95|'                       aliqueit.ini
+    sed -i -e 's|^\(ggnfs_clean_cmd = del\)|//\1|'                                  aliqueit.ini
+    sed -i -e 's|^//\(ggnfs_clean_cmd = rm\)|\1|'                                   aliqueit.ini
+    sed -i -e 's|^\(null_device = nul\)|//\1|'                                      aliqueit.ini
+    sed -i -e 's|^//\(null_device = /dev\)|\1|'                                     aliqueit.ini
+    sed -i -e 's|^ecm_cmd = .*$|ecm_cmd = ${ecm}/bin/ecm|'                          aliqueit.ini
+    sed -i -e 's|^ecmpy_cmd = .*$|ecmpy_cmd = ${ecmpy}/bin/ecm.py|'                 aliqueit.ini
+    sed -i -e 's|^yafu_cmd = .*$|yafu_cmd = ${yafu}/bin/yafu-wrapped|'              aliqueit.ini
+    sed -i -e 's|^msieve_cmd = .*$|msieve_cmd = ${msieve}/bin/msieve|'              aliqueit.ini
+    sed -i -e 's|^ggnfs_cmd = .*$|ggnfs_cmd = ${factmsievepy}/bin/factmsieve.py|'   aliqueit.ini
+    sed -i -e 's|^stop_on_failure = .*$|stop_on_failure = true|'                    aliqueit.ini
+    sed -i -e 's|^prefer_yafu = .*$|prefer_yafu = true|'                            aliqueit.ini
+    sed -i -e 's|^use_ecmpy = .*$|use_ecmpy = true|'                                aliqueit.ini
+    sed -i -e 's|^gnfs_cutoff = .*$|gnfs_cutoff = 95|'                              aliqueit.ini
 
     runHook postPatch
   '';

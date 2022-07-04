@@ -34,6 +34,7 @@ stdenv.mkDerivation {
     sed -i -e 's|^% threads=1$|threads=4|'                  yafu.ini
     sed -i -e 's|^% nprp=1$|nprp=20|'                       yafu.ini
     sed -i -e 's|^v$|% v|'                                  yafu.ini
+    sed -i -e 's|^xover=.*$|xover=95|'                      yafu.ini
     sed -i -e 's|^ggnfs_dir=.*$|ggnfs_dir=${ggnfs}/bin/|'   yafu.ini
     sed -i -e 's|^ecm_path=.*$|ecm_path=${ecm}/bin/ecm|'    yafu.ini
     sed -i -e 's|^ext_ecm=.*$|ext_ecm=10000|'               yafu.ini
