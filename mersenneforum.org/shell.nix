@@ -8,27 +8,27 @@ in
 
 pkgs.mkShell {
 
-    nativeBuildInputs = with pkgs; [
-        niv
-        ecm-git
-        msieve-svn
-        ysieve
-        yafu
-        ggnfs
-        ecmpy
-        factmsievepy
-        aliqueit
-        cado-nfs
-        primesieve
-        primecount
-        primesum
-    ];
+  buildInputs = with pkgs; [
+    niv
+    ecm-git
+    msieve-svn
+    ysieve
+    yafu
+    ggnfs
+    ecmpy
+    factmsievepy
+    aliqueit
+    cado-nfs
+    primesieve
+    primecount
+    primesum
+  ];
 
-#   NIXSHELL_GREETING = "Hello, shell!";
+# NIXSHELL_GREETING = "Hello, shell!";
 #
-#   shellHook =
-#   ''
-#       echo $NIXSHELL_GREETING
-#   '';
+# shellHook =
+# ''
+#   echo $NIXSHELL_GREETING
+# '';
 
 }

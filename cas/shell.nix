@@ -8,19 +8,19 @@ in
 
 pkgs.mkShell {
 
-    nativeBuildInputs = with pkgs; [
-        niv
-        sageWithDoc
-        sagetex
-        octave
-        maxima
-    ];
+  buildInputs = with pkgs; [
+    niv
+    sageWithDoc
+    sagetex
+    octave
+    maxima
+  ];
 
-#   NIXSHELL_GREETING = "Hello, shell!";
+# NIXSHELL_GREETING = "Hello, shell!";
 #
-#   shellHook =
-#   ''
-#       echo $NIXSHELL_GREETING
-#   '';
+# shellHook =
+# ''
+#   echo $NIXSHELL_GREETING
+# '';
 
 }
