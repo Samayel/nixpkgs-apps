@@ -1,4 +1,4 @@
-#! /usr/bin/env -S nix shell nixpkgs#python3 -i -c python3
+#! /usr/bin/env -S nix run nixpkgs#python3
 
 import sys
 print(sys.version)

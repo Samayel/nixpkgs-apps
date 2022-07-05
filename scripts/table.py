@@ -1,4 +1,4 @@
-#! /usr/bin/env -S nix shell ./table#python3withPrettytable -i -c python3
+#! /usr/bin/env -S nix run ./table#python3withPrettytable
 
 import prettytable
 
