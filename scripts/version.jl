@@ -1,6 +1,4 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -I nixpkgs=/home/johm/.nix-defexpr/channels/nixpkgs
-#! nix-shell --pure -i bash -p julia-bin
+#! /usr/bin/env -S nix shell nixpkgs#bash nixpkgs/release-22.05#julia-bin -i -c bash
 #=
 exec julia --color=yes --startup-file=no "${BASH_SOURCE[0]}" "$@"
 =#
